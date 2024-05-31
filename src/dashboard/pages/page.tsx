@@ -1,61 +1,44 @@
-import {
-  Button,
-  EmptyState,
-  Image,
-  Page,
-  TextButton,
-  WixDesignSystemProvider,
-} from "@wix/design-system";
-import "@wix/design-system/styles.global.css";
-import * as Icons from "@wix/wix-ui-icons-common";
-import React from "react";
-import wixLogo from "./wix_logo.svg";
-import { withDashboard, useDashboard } from "@wix/dashboard-react";
+import React from 'react';
+import { Page, Card, Box, Text, TextButton } from '@wix/design-system';
+import '@wix/design-system/styles.global.css';
+import { withProviders } from '../withProviders';
+import ProjectToken from '../components/ProjectToken';
 
-function Index() {
-  const { showToast } = useDashboard();
 
+function MixPanelAnalytics(){
   return (
-    <WixDesignSystemProvider>
-      <Page>
-        <Page.Header
-          title="Dashboard Page"
-          subtitle="Add management capabilities to your app."
-          actionsBar={
-            <Button
-              onClick={() => {
-                showToast({
-                  message: "Your first toast message!",
-                });
-              }}
-              prefixIcon={<Icons.GetStarted />}
-            >
-              Show a toast
-            </Button>
-          }
-        />
-        <Page.Content>
-          <EmptyState
-            image={
-              <Image fit="contain" height="100px" src={wixLogo} transparent />
-            }
-            title="Start editing this dashboard page"
-            subtitle="Learn how to work with dashboard pages and how to add functionality to them using Wix APIs."
-            theme="page"
-          >
-            <a
-              href="https://dev.wix.com/api/cli/app-framework/dashboard-pages"
-              target="_blank"
-            >
-              <TextButton prefixIcon={<Icons.ExternalLink />}>
-                Dashboard pages documentation
-              </TextButton>
-            </a>
-          </EmptyState>
-        </Page.Content>
-      </Page>
-    </WixDesignSystemProvider>
-  );
+    <Page height='100vh'>
+      <Page.Header title="Mixpanel Analytics"/>
+      <Page.Content>
+        <Card>
+          <Card.Header title="Setup" />
+          <Card.Divider/>
+          <Card.Content>
+            <Box direction='vertical' gap={3}>
+              <Text>
+                To start collecting data please add your Mixpanel project token.
+                <br/>
+                If you don't have one, you can create it in 
+                <Box inline padding={1}>
+                  <TextButton
+                    underline='onHover'
+                    onClick={()=> open('https://mixpanel.com/analysis')}
+                  >
+                    Mix Panel Analytics
+
+                  </TextButton>
+
+                </Box>
+              </Text>
+              <ProjectToken/>
+
+            </Box>
+          </Card.Content>
+        </Card>
+      </Page.Content>
+
+    </Page>
+  )
 }
 
-export default withDashboard(Index);
+export default withProviders(MixPanelAnalytics);
